@@ -20,7 +20,8 @@ public:
 private:
     GLFWwindow* window;
     std::string windowTitle;
-    unsigned int windowWidth, windowHeight;
+    unsigned int windowWidth;
+    unsigned int windowHeight;
 
     void initGlfw();
     void initGlad();

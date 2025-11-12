@@ -1,12 +1,12 @@
 #include "Particle.h"
 
 
-Particle::Particle(glm::vec3 pos, glm::vec3 vel, float m) :position(glm::vec4(pos, 0.f)), velocity(glm::vec4(vel, 0.f)), mass(m), acceleration(glm::vec4(0.f, 0.f, 0.f, 0.f)){};
+Particle::Particle(glm::vec3 pos, glm::vec3 vel, float m) :position(glm::vec4(pos, 0.f)), velocity(glm::vec4(vel, 0.f)), acceleration(glm::vec4(0.f, 0.f, 0.f, 0.f)), mass(m){};
 
 Particle::Particle(glm::vec3 pos, glm::vec3 vel, glm::vec3 acc, float m) :position(glm::vec4(pos, 0.f)),
 velocity(glm::vec4(vel, 0.f)),
-mass(m),
-acceleration(glm::vec4(acc, 0.f)){};
+acceleration(glm::vec4(acc, 0.f)),
+mass(m){};
 
 
 Particle::Particle() = default;

@@ -8,8 +8,8 @@ RenderTimer::RenderTimer(bool showFps, bool vSync) :
     showFPS(showFps),
     previousTime(glfwGetTime()),
     frameCount(0),
-    totalElapsedTime(0), 
     totalIterations(0),
+    totalElapsedTime(0), 
     lastFrameTime(glfwGetTime()){
     if(!vSync){
         // Disable Vsync
