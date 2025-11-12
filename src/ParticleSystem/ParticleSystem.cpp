@@ -11,7 +11,7 @@ ParticleSystem::ParticleSystem(const std::vector<Particle> &particles, const boo
     this->forces = new glm::vec4[this->numParticles]();
 
 
-    for (int i = 0; i < this->numParticles; i++) {
+    for (size_t i = 0; i < this->numParticles; i++) {
         this->velocities[i] = particles[i].velocity;
         this->accelerations[i] = particles[i].acceleration;
         this->positions[i] = particles[i].position;
@@ -37,7 +37,7 @@ ParticleSystem::ParticleSystem(ParticleSystem * other) {
     this->masses = new glm::vec4[this->numParticles]();
     this->forces = new glm::vec4[this->numParticles]();
 
-    for (int i = 0; i < this->numParticles; i++) {
+    for (size_t i = 0; i < this->numParticles; i++) {
         this->velocities[i] = other->getVelocities()[i];
         this->accelerations[i] = other->getAccelerations()[i];
         this->positions[i] = other->positions[i];
@@ -139,9 +139,9 @@ void ParticleSystem::gpuSort() {
 
     const int N = this->paddedNumParticles; // Or use next power of 2 if padding
 
-    for (unsigned int k = 2; k <= N; k <<= 1) { // k = size of sequences being merged
+    for (int k = 2; k <= N; k <<= 1) { // k = size of sequences being merged
         bitonicSortShader->setInt("k", k);
-        for (unsigned int j = k >> 1; j > 0; j >>= 1) { // j = comparison distance
+        for (int j = k >> 1; j > 0; j >>= 1) { // j = comparison distance
             if (j < 1) continue; // Should not happen with k >= 2
             bitonicSortShader->setInt("j", j);
 

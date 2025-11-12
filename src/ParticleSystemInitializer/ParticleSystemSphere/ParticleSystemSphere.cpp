@@ -59,7 +59,7 @@ std::unique_ptr<ParticleSystem> ParticleSystemSphere::generateParticles(
 
 
     // --- Particle Generation Loop ---
-    for (int i = 0; i < totalParticles; ++i) {
+    for (size_t i = 0; i < totalParticles; ++i) {
         // 1. Generate Position (on the surface of the sphere)
         glm::vec3 position;
         float lenSq;

@@ -83,7 +83,7 @@ void ParallelOctreeCPU::reset(ParticleSystem *p) {
 
     // Find the max and min positions
     #pragma omp parallel for reduction(min: min_x, min_y, min_z) reduction(max: max_x, max_y, max_z)
-    for (int i = 0;  i < p->size(); ++i){
+    for (size_t i = 0;  i < p->size(); ++i){
         const glm::vec4 pos = p->getPositions()[i];
 
         if (pos.x < min_x){
@@ -134,7 +134,7 @@ void ParallelOctreeCPU::insert(ParticleSystem *p) {
  
     // Fill the tasks
     #pragma omp parallel for
-    for (int j = 0; j < p->size(); j++) {
+    for (size_t j = 0; j < p->size(); j++) {
         const glm::vec4 pos = p->getPositions()[j];
         int i = 0;
         int depth = 0;
