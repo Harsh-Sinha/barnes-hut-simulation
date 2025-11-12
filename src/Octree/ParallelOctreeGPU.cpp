@@ -253,7 +253,7 @@ void ParallelOctreeGPU::prune() {
     int level = 0;
     int left = 0;
     int right = ipow(8, level);
-    int processedNumNodes = ipow(8, level);
+    //int processedNumNodes = ipow(8, level);
 
 	
     while (level < maxDepth) {

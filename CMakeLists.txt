@@ -90,9 +90,6 @@ else() # Assuming GCC or Clang
       # OpenMP: Use the flag found by FindOpenMP
       ${OpenMP_CXX_FLAGS}
       # Add other GCC/Clang flags as needed (e.g., -Wall for warnings)
-      -Wall
-      -Wextra
-      -pedantic
   )
 endif()
 
