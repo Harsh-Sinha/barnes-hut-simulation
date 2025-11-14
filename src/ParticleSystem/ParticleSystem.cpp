@@ -1,7 +1,15 @@
 #include "ParticleSystem.h"
 #include "Helpers.h"
 #include <algorithm>
+#include <filesystem>
 using helpers::log;
+namespace
+{
+	std::string getFileDir()
+	{
+		return std::filesystem::canonical(std::filesystem::path(__FILE__)).parent_path().string() + "/";
+	}
+}
 ParticleSystem::ParticleSystem(const std::vector<Particle> &particles, const bool usesGPU) {
     this->numParticles = particles.size();
     this->velocities = new glm::vec4[this->numParticles]();
@@ -24,9 +32,9 @@ ParticleSystem::ParticleSystem(const std::vector<Particle> &particles, const boo
 }
 
 void ParticleSystem::compileShaders() {
-    mortonShader = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/morton.glsl"));
-    rearrangeParticlesShader = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/rearrange.glsl"));
-	bitonicSortShader = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/bitonicSort.glsl"));
+    mortonShader = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/morton.glsl"));
+    rearrangeParticlesShader = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/rearrange.glsl"));
+	bitonicSortShader = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/bitonicSort.glsl"));
 }
 
 ParticleSystem::ParticleSystem(ParticleSystem * other) {

@@ -2,6 +2,15 @@
 #include "Bloom.h"
 #include <glad/glad.h>
 #include <iostream>
+#include <filesystem>
+
+namespace
+{
+	std::string getFileDir()
+	{
+		return std::filesystem::canonical(std::filesystem::path(__FILE__)).parent_path().string() + "/";
+	}
+}
 
 Bloom::Bloom(glm::vec2 &windowDim) {
     this->activated = true;
@@ -63,7 +72,7 @@ Bloom::Bloom(glm::vec2 &windowDim) {
         );
     }
 
-    this->blurShader = new VertexFragmentShader("../src/shaders/blur_vs.glsl", "../src/shaders/blur_fs.glsl");
+    this->blurShader = new VertexFragmentShader(::getFileDir() + "../shaders/blur_vs.glsl", ::getFileDir() + "../shaders/blur_fs.glsl");
     this->blurShader->use();
     this->blurShader->setInt("image", 0);
 }

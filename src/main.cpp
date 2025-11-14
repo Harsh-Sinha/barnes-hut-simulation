@@ -1,4 +1,5 @@
 #include <memory>
+#include <filesystem>
 #include "ArgumentsParser.h"
 
 #include "ParticleSystemCubeInitializer.h"
@@ -20,6 +21,14 @@
 
 
 #include "WindowInputManager.h"
+
+namespace
+{
+	std::string getFileDir()
+	{
+		return std::filesystem::canonical(std::filesystem::path(__FILE__)).parent_path().string() + "/";
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -92,8 +101,8 @@ int main(int argc, char *argv[])
             );
             break;
         case Version::PP_GPU_PARALLEL:
-            positionsCalculatorPath = "../src/shaders/ComputeShaders/updateParticles.glsl";
-            forceCalculatorPath = "../src/shaders/ComputeShaders/forceCalculation.glsl";
+            positionsCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/updateParticles.glsl";
+            forceCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/forceCalculation.glsl";
             particleSimulation = std::make_shared<ParticleSimulation>(
                 std::move(particleSystemInitializer),
                 std::move(
@@ -104,8 +113,8 @@ int main(int argc, char *argv[])
             );
             break;
         case Version::PP_GPU_OPTIMIZED:
-            positionsCalculatorPath = "../src/shaders/ComputeShaders/updateParticles.glsl";
-            forceCalculatorPath = "../src/shaders/ComputeShaders/forceCalculationOptimized.glsl";
+            positionsCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/updateParticles.glsl";
+            forceCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/forceCalculationOptimized.glsl";
             particleSimulation = std::make_shared<ParticleSimulation>(
                 std::move(particleSystemInitializer),
                 std::move(
@@ -139,8 +148,8 @@ int main(int argc, char *argv[])
             break;
        
         case Version::BARNES_HUT_GPU_PARALLEL:
-            positionsCalculatorPath = "../src/shaders/ComputeShaders/updateParticles.glsl";
-            forceCalculatorPath = "../src/shaders/ComputeShaders/forceCalcuBarnesHut.glsl";
+            positionsCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/updateParticles.glsl";
+            forceCalculatorPath = ::getFileDir() + "../shaders/ComputeShaders/forceCalcuBarnesHut.glsl";
             particleSimulation = std::make_shared<ParticleSimulation>(
                 std::move(particleSystemInitializer),
                 std::move(

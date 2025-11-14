@@ -2,6 +2,15 @@
 
 #include "ParticleDrawer.h"
 
+#include <filesystem>
+
+namespace
+{
+	std::string getFileDir()
+	{
+		return std::filesystem::canonical(std::filesystem::path(__FILE__)).parent_path().string() + "/";
+	}
+}
 
 ParticleDrawer::~ParticleDrawer() {
     delete this->renderShader;
@@ -13,13 +22,13 @@ ParticleDrawer::ParticleDrawer(glm::vec3 worldDim, glm::vec2 windowDim) {
     this->camera = new Camera(windowDim, worldDim);
     this->bloom = new Bloom(windowDim);
 
-    this->renderShader = new VertexFragmentShader("../src/shaders/vertexShader.glsl", "../src/shaders/fragmentShader.glsl");
+    this->renderShader = new VertexFragmentShader(::getFileDir() + "../shaders/vertexShader.glsl", ::getFileDir() + "../shaders/fragmentShader.glsl");
     this->renderShader->use();
     this->renderShader->setFloat("worldSize", glm::length(worldDim));
     this->pointSize = false;
 
 
-    this->finalRenderShader = new VertexFragmentShader("../src/shaders/finalRender_vs.glsl", "../src/shaders/finalRender_fs.glsl");
+    this->finalRenderShader = new VertexFragmentShader(::getFileDir() + "../shaders/finalRender_vs.glsl", ::getFileDir() + "../shaders/finalRender_fs.glsl");
     this->finalRenderShader->use();
     this->finalRenderShader->setInt("normalScene", 0);
     this->finalRenderShader->setInt("blurScene", 1);

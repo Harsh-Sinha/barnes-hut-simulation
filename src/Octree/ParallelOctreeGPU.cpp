@@ -4,8 +4,17 @@
 #include <glm/gtx/norm.hpp>
 #include "Helpers.h"
 #include <algorithm>    // std::sort
+#include <filesystem>
 using helpers::log;
 using helpers::ipow; 
+
+namespace
+{
+	std::string getFileDir()
+	{
+		return std::filesystem::canonical(std::filesystem::path(__FILE__)).parent_path().string() + "/";
+	}
+}
 
 ParallelOctreeGPU::ParallelOctreeGPU(const int n){
     this->totalParticles = n;
@@ -37,19 +46,19 @@ ParallelOctreeGPU::ParallelOctreeGPU(const int n){
 }
 
 void ParallelOctreeGPU::initComputeShaders() {
-    this->expander = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/expandOctree.glsl"));
-    this->inserter = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/insertParticles.glsl"));
-    this->distributor = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/distributeParticles.glsl"));
-    this->resetOctree = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/resetOctree.glsl"));
-    this->resetTasks = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/resetTasks.glsl"));
-    this->boundingBoxPass1 = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/boundingBoxPass1.glsl"));
-    this->boundingBoxPass2 = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/boundingBoxPass2.glsl"));
-    this->countParticlesPerTask = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/countParticlesPerTask.glsl"));
-    this->prefixSum = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/prefixSum.glsl"));
-    this->addBlockSums = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/addBlockSums.glsl"));
-    this->propagateFather = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/propagateFatherOctree.glsl"));
-    this->pruneFather = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/pruneFather.glsl"));
-    this->pruneSubtrees = std::make_unique<ComputeShader>(std::string("../src/shaders/ComputeShaders/pruneSubtrees.glsl"));
+    this->expander = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/expandOctree.glsl"));
+    this->inserter = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/insertParticles.glsl"));
+    this->distributor = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/distributeParticles.glsl"));
+    this->resetOctree = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/resetOctree.glsl"));
+    this->resetTasks = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/resetTasks.glsl"));
+    this->boundingBoxPass1 = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/boundingBoxPass1.glsl"));
+    this->boundingBoxPass2 = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/boundingBoxPass2.glsl"));
+    this->countParticlesPerTask = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/countParticlesPerTask.glsl"));
+    this->prefixSum = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/prefixSum.glsl"));
+    this->addBlockSums = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/addBlockSums.glsl"));
+    this->propagateFather = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/propagateFatherOctree.glsl"));
+    this->pruneFather = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/pruneFather.glsl"));
+    this->pruneSubtrees = std::make_unique<ComputeShader>(std::string(::getFileDir() + "../shaders/ComputeShaders/pruneSubtrees.glsl"));
     
 }
 
